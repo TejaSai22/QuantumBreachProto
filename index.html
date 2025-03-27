@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3D Battle Royale</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            font-family: Arial, sans-serif;
+        }
+        
+        #game-canvas {
+            width: 100%;
+            height: 100%;
+            display: block;
+            position: fixed;
+            top: 0;
+            left: 0;
+            cursor: crosshair;
+        }
+        
+        #ui-overlay {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            z-index: 100;
+            color: white;
+            font-size: 18px;
+            text-shadow: 1px 1px 2px black;
+            pointer-events: none;
+            user-select: none;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        
+        .health-bar {
+            width: 200px;
+            height: 20px;
+            background-color: rgba(0, 0, 0, 0.5);
+            border: 2px solid white;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        
+        .health-fill {
+            height: 100%;
+            width: 100%;
+            background-color: #ff3333;
+            transition: width 0.3s ease-in-out;
+        }
+        
+        .ammo-display {
+            background-color: rgba(0, 0, 0, 0.5);
+            padding: 5px 10px;
+            border-radius: 5px;
+            border: 1px solid white;
+        }
+        
+        .players-left {
+            background-color: rgba(0, 0, 0, 0.5);
+            padding: 5px 10px;
+            border-radius: 5px;
+            border: 1px solid white;
+        }
+        
+        .crosshair {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            font-size: 24px;
+            z-index: 100;
+            pointer-events: none;
+            user-select: none;
+        }
+        
+        #start-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 200;
+            color: white;
+        }
+        
+        #start-screen.hidden {
+            display: none;
+        }
+        
+        #start-button {
+            padding: 15px 30px;
+            font-size: 24px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 30px;
+        }
+        
+        #start-button:hover {
+            background-color: #45a049;
+        }
+        
+        .info-text {
+            margin: 20px 0;
+            max-width: 600px;
+            text-align: center;
+            line-height: 1.5;
+        }
+
+        .control-list {
+            text-align: left;
+            margin: 20px auto;
+            width: 300px;
+        }
+
+        .control-list li {
+            margin-bottom: 8px;
+        }
+
+        #pointer-lock-message {
+            margin-top: 15px;
+            font-style: italic;
+            font-size: 14px;
+            color: #aaa;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="game-canvas"></canvas>
+    
+    <div id="ui-overlay">
+        <div class="health-container">
+            <div>Health: <span id="health-value">100</span></div>
+            <div class="health-bar">
+                <div id="health-fill" class="health-fill"></div>
+            </div>
+        </div>
+        <div class="ammo-display">Ammo: <span id="ammo-value">30</span> / <span id="total-ammo-value">90</span></div>
+        <div class="players-left">Players left: <span id="players-left-value">30</span></div>
+    </div>
+    
+    <div class="crosshair">+</div>
+    
+    <div id="start-screen">
+        <h1>3D BATTLE ROYALE</h1>
+        <div class="info-text">
+            <p>Eliminate all enemy bots to win the game!</p>
+            <div class="control-list">
+                <h3>Controls:</h3>
+                <ul>
+                    <li><strong>WASD</strong> - Move</li>
+                    <li><strong>Mouse</strong> - Look around</li>
+                    <li><strong>Left Click</strong> - Shoot</li>
+                    <li><strong>Space</strong> - Jump</li>
+                    <li><strong>R</strong> - Reload weapon</li>
+                    <li><strong>ESC</strong> - Release mouse</li>
+                </ul>
+            </div>
+            <p id="pointer-lock-message">Note: The game will request mouse control when you start. Click the game screen if controls stop working.</p>
+        </div>
+        <button id="start-button">START GAME</button>
+    </div>
+    
+    <script type="module" src="src/js/game.js"></script>
+</body>
+</html> 
